@@ -22,8 +22,8 @@ Long description of module's purpose
 
     # always loaded
      'data': [
-        # 'security/ir.model.access.csv',
-        # 'security/custom_checklist_group.xml',
+        'security/ir.model.access.csv',
+        'security/custom_checklist_group.xml',
         'report/manufacturing_report_inherit.xml',
         'views/manufacturing_custom_checklist_views.xml',
     ],
