@@ -7,7 +7,7 @@
         <field name="name">view.manufacturing.custom.checklist.list</field>
         <field name="model">manufacturing.checklist</field>
         <field name="arch" type="xml">
-            <list string="MRP Checklist" multi_edit="1">
+            <list string="Kalite Kontrol Soruları" multi_edit="1">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="description"/>
@@ -19,7 +19,7 @@
         <field name="name">view.manufacturing.custom.checklist.form</field>
         <field name="model">manufacturing.checklist</field>
         <field name="arch" type="xml">
-            <form string="MRP Checklist">
+            <form string="Kalite Kontrol Soruları">
                 <sheet>
                     <group col="4">
                         <field name="name"/>
@@ -32,7 +32,7 @@
 
 
     <record id="action_manufacturing_checklist_views" model="ir.actions.act_window">
-        <field name="name">MRP Checklist</field>
+        <field name="name">Kalite Kontrol Soruları</field>
         <field name="res_model">manufacturing.checklist</field>
         <field name="view_mode">list,form</field>
         <field name="type">ir.actions.act_window</field>
@@ -43,7 +43,7 @@
         <field name="name">view.manufacturing.custom.checklist.template.list</field>
         <field name="model">manufacturing.checklist.template</field>
         <field name="arch" type="xml">
-            <list string="MRP Checklist Template" multi_edit="1">
+            <list string="Kalite Kontrol Listeleri" multi_edit="1">
                 <field name="sequence" widget="handle"/>
                 <field name="template_name"/>
                 <field name="checklist_ids" widget="many2many_tags" optional="show"/>
@@ -55,7 +55,7 @@
         <field name="name">view.manufacturing.custom.checklist.template.form</field>
         <field name="model">manufacturing.checklist.template</field>
         <field name="arch" type="xml">
-            <form string="MRP Checklist Template">
+            <form string="Kalite Kontrol Listeleri">
                 <sheet>
                     <group col="4">
                         <field name="template_name"/>
@@ -68,7 +68,7 @@
 
 
     <record id="action_manufacturing_checklist_template_views" model="ir.actions.act_window">
-        <field name="name">MRP Checklist Template</field>
+        <field name="name">Kalite Kontrol Listeleri</field>
         <field name="res_model">manufacturing.checklist.template</field>
         <field name="view_mode">list,form</field>
         <field name="type">ir.actions.act_window</field>
@@ -81,9 +81,9 @@
         <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
         <field name="arch" type="xml">
             <search>
-                <filter name="checklist_progress" string="MRP Checklist Completed"
+                <filter name="checklist_progress" string="Kalite Kontrol Tamamlandı"
                         domain="[('checklist_progress' , '=' , '100')]"/>
-                <filter name="checklist_progress" string="MRP Checklist Uncompleted"
+                <filter name="checklist_progress" string="Kalite Kontrol Tamamlanmadı"
                         domain="[('checklist_progress' , '!=' , '100')]"/>
             </search>
         </field>
@@ -123,7 +123,7 @@
         <field name="inherit_id" ref="mrp.mrp_production_form_view"></field>
         <field name="arch" type="xml">
             <xpath expr="//notebook/page[1]" position="before">
-                <page string="Checklist" name="custom_checklist">
+                <page string="Kalite Kontrol" name="custom_checklist">
                     <div>
                         <field name="checklist_progress" widget="percentpie" string=""/>
                     </div>
@@ -133,12 +133,12 @@
                     </div>
                     <div>
                         <field name="checklist_line_ids">
-                            <list string="checklist" editable="bottom" decoration-success="state == 'complete'"
+                            <list string="Kalite Kontrol" editable="bottom" decoration-success="state == 'complete'"
                                   decoration-danger="state == 'cancel'">
                                 <field name="checklist_id"/>
 
-                                <button name="action_complete" icon="fa-check" type="object" string="Complete"/>
-                                <button name="action_cancel" string="Cancel" icon="fa-times" type="object"/>
+                                <button name="action_complete" icon="fa-check" type="object" string="Onayla"/>
+                                <button name="action_cancel" string="İptal" icon="fa-times" type="object"/>
                                 <field name="description"/>
                                  <field name="state" readonly="1"/>
                                 <field name="date" readonly="1"/>
@@ -173,10 +173,10 @@
         <field name="arch" type="xml">
             <search string="Checklist">
                 <field name="template_name" string="Name" filter_domain="[('template_name','ilike', self)]"/>
-                <field name="checklist_ids" string="Check list" filter_domain="[('checklist_ids','ilike', self)]"/>
+                <field name="checklist_ids" string="Kalite Kontrol Soruları" filter_domain="[('checklist_ids','ilike', self)]"/>
 
                 <group string="Group By">
-                    <filter string="MRP Checklist Template" name="template_name"
+                    <filter string="Kalite Kontrol Listeleri" name="template_name"
                             context="{'group_by':'template_name'}"/>
                 </group>
             </search>
@@ -184,12 +184,12 @@
     </record>
 
 
-    <menuitem id="custom_manufacturing_checklist_menu" name="MRP Checklist"
+    <menuitem id="custom_manufacturing_checklist_menu" name="Kalite Kontrol Soruları"
               parent="mrp.menu_mrp_configuration" action="action_manufacturing_checklist_views"
               sequence="10"/>
 
 
-    <menuitem id="custom_manufacturing_checklist_template_menu" name="MRP Checklist Template"
+    <menuitem id="custom_manufacturing_checklist_template_menu" name="Kalite Kontrol Listeleri"
               parent="mrp.menu_mrp_configuration" action="action_manufacturing_checklist_template_views"
                sequence="11"/>
 

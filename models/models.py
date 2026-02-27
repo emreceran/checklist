@@ -10,9 +10,9 @@ class ManufacturingChecklist(models.Model):
     _name = "manufacturing.checklist"
     _description = "Manufacturing Custom checklist"
 
-    sequence = fields.Integer(string="Sequence")
-    name = fields.Char(string="Name")
-    description = fields.Char(string="Description")
+    sequence = fields.Integer(string="Sıra")
+    name = fields.Char(string="Ad")
+    description = fields.Char(string="Açıklama")
 
 
 class ManufacturingChecklistLine(models.Model):
@@ -20,17 +20,17 @@ class ManufacturingChecklistLine(models.Model):
     _description = "MRP Custom checklist Line"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    sequence = fields.Integer(string="Sequence")
-    name = fields.Char(string="Name")
-    checklist_id = fields.Many2one('manufacturing.checklist', string="Name ")
-    mrp_id = fields.Many2one("mrp.production", string="mrp id")
-    description = fields.Char(string="Description")
-    date = fields.Date(default=fields.Date.today)
+    sequence = fields.Integer(string="Sıra")
+    name = fields.Char(string="Ad")
+    checklist_id = fields.Many2one('manufacturing.checklist', string="Ad")
+    mrp_id = fields.Many2one("mrp.production", string="Üretim Emri")
+    description = fields.Char(string="Açıklama")
+    date = fields.Date(default=fields.Date.today, string="Tarih")
     date_finished = fields.Date(string="Onay Tarihi", readonly=True, tracking=True)
     state = fields.Selection([
-        ('new', 'New'),
-        ('complete', 'Complete'),
-        ('cancel', 'Cancel')], string='State', tracking=True,
+        ('new', 'Yeni'),
+        ('complete', 'Tamamlandı'),
+        ('cancel', 'İptal')], string='Durum', tracking=True,
         copy=False, default="new")
 
     @api.onchange('checklist_id')
@@ -76,17 +76,17 @@ class ManufacturingChecklistTemplate(models.Model):
     _description = "Manufacturing Custom Checklist Template"
     _rec_name = "template_name"
 
-    sequence = fields.Integer(string="Sequence")
-    template_name = fields.Char(string="Name")
-    checklist_ids = fields.Many2many('manufacturing.checklist', string="Checklist Template")
+    sequence = fields.Integer(string="Sıra")
+    template_name = fields.Char(string="Ad")
+    checklist_ids = fields.Many2many('manufacturing.checklist', string="Kalite Kontrol Soruları")
 
 
 class MrpProduction(models.Model):
     _inherit = "mrp.production"
 
-    checklist_progress = fields.Integer(string='Checklist Progress', store=True, default=0)
-    checklist_template = fields.Many2many('manufacturing.checklist.template', string='MRP Checklist template')
-    checklist_line_ids = fields.One2many('manufacturing.checklist.line', 'mrp_id', string='Checklist')
+    checklist_progress = fields.Integer(string='Kalite Kontrol İlerlemesi', store=True, default=0)
+    checklist_template = fields.Many2many('manufacturing.checklist.template', string='Kalite Kontrol Listeleri')
+    checklist_line_ids = fields.One2many('manufacturing.checklist.line', 'mrp_id', string='Kalite Kontrol')
 
     @api.onchange('checklist_template')
     def onchange_checklist_template(self):
